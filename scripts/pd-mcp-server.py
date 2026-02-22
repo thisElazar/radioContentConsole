@@ -134,7 +134,7 @@ def pd_transport(action: str) -> str:
     target = actions.get(action.lower())
     if not target:
         return f"Unknown action '{action}'. Use: play, stop, panic"
-    send_fudi(f"bang {target}")
+    send_fudi(f"trig {target}")
     return f"Transport: {action}"
 
 
