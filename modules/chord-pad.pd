@@ -1,4 +1,4 @@
-#N canvas 605 50 1100 980 12;
+#N canvas 605 38 1100 980 12;
 #X text 20 10 chord-pad — Sustained chord tones with shimmer and movement. Select a root note and chord type \, and the module voices multiple detuned oscillators to create a rich \, wide pad sound. The primary tool for creating beds that sit under speech.;
 #X obj 20 70 r tk-note;
 #X obj 120 70 r tk-panic;
@@ -389,10 +389,8 @@
 #X obj 200 100 pack f 30;
 #X obj 200 130 line~;
 #X obj 30 80 *~;
-#X obj 30 130 throw~ tk-insert-L;
-#X obj 30 160 throw~ tk-insert-R;
-#X obj 30 200 throw~ tk-send-L;
-#X obj 30 230 throw~ tk-send-R;
+#X obj 30 130 throw~ tk-chordpad-L;
+#X obj 30 160 throw~ tk-chordpad-R;
 #X connect 0 0 5 0;
 #X connect 1 0 2 0;
 #X connect 2 0 3 0;
@@ -400,8 +398,6 @@
 #X connect 4 0 5 1;
 #X connect 5 0 6 0;
 #X connect 5 0 7 0;
-#X connect 5 0 8 0;
-#X connect 5 0 9 0;
 #X restore 20 330 pd output;
 #X obj 20 370 cnv 15 700 20 empty empty CHORD\ PAD 4 10 0 14 #e0f0fc #000000 0;
 #X obj 20 395 cnv 5 700 2 empty empty empty 0 0 0 12 #fc0400 #000000 0;
@@ -411,7 +407,7 @@
 #X obj 20 495 hsl 128 15 24 60 0 0 1004-root 1004-root Root 0 -8 0 12 #000000 #fcfcfc #fcfcfc 0 1;
 #X floatatom 160 495 4 24 60 1 - 1004-root - 0;
 #X obj 380 410 cnv 15 340 20 empty empty CHORD\ TYPE 4 10 0 12 #e0f0fc #000000 0;
-#X obj 380 435 hradio 20 1 0 8 1004-chord 1004-chord empty 0 12 0 12 #bc825a #ffffff #fcfcfc 0;
+#X obj 360 438 hradio 50 1 0 8 1004-chord 1004-chord empty 0 12 0 12 #ff8300 #ffffff #000000 0;
 #X text 380 460 5th\ \ Maj\ \ min\ \ su2\ \ su4\ \ M7\ \ \ m7\ \ Oct;
 #X obj 20 525 cnv 15 340 20 empty empty VOICES\ PER\ PITCH 4 10 0 12 #e0f0fc #000000 0;
 #X obj 20 550 hradio 20 1 0 2 1004-voicectl 1004-voicectl empty 0 12 0 12 #000000 #fcfcfc #fcfcfc 0;
