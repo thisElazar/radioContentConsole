@@ -25,7 +25,7 @@ sys.path.insert(
 )
 
 from puredata_compiler import Patch, Canvas, Obj, Msg, Connection
-from puredata_compiler.model import GuiElement, FloatAtom, SymbolAtom, Comment
+from puredata_compiler.model import GuiElement, FloatAtom, SymbolAtom, Comment, ArrayElement
 
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -48,35 +48,116 @@ def walk_nodes(canvas):
 # ── A1: Fix 1004- → $0- ──────────────────────────────────────────────
 
 
-def fix_dollarzero(patch, label):
-    """Replace all 1004- prefixes with $0- in Obj tokens and GuiElement raw_params."""
+def fix_dollarzero(patch, prefix, label):
+    """Replace all {prefix} prefixes with $0- in Obj tokens and GuiElement raw_params."""
     count = 0
     for node in walk_nodes(patch.canvas):
         if isinstance(node, Obj):
             for i, tok in enumerate(node.tokens):
-                if "1004-" in tok:
-                    node.tokens[i] = tok.replace("1004-", "$0-")
+                if prefix in tok:
+                    node.tokens[i] = tok.replace(prefix, "$0-")
                     count += 1
         elif isinstance(node, GuiElement):
             for i, p in enumerate(node.raw_params):
-                if "1004-" in p:
-                    node.raw_params[i] = p.replace("1004-", "$0-")
+                if prefix in p:
+                    node.raw_params[i] = p.replace(prefix, "$0-")
                     count += 1
         elif isinstance(node, FloatAtom):
             for i, p in enumerate(node.raw_params):
-                if "1004-" in p:
-                    node.raw_params[i] = p.replace("1004-", "$0-")
+                if prefix in p:
+                    node.raw_params[i] = p.replace(prefix, "$0-")
                     count += 1
         elif isinstance(node, SymbolAtom):
             for i, p in enumerate(node.raw_params):
-                if "1004-" in p:
-                    node.raw_params[i] = p.replace("1004-", "$0-")
+                if prefix in p:
+                    node.raw_params[i] = p.replace(prefix, "$0-")
+                    count += 1
+        elif isinstance(node, ArrayElement):
+            for i, p in enumerate(node.raw_params):
+                if prefix in p:
+                    node.raw_params[i] = p.replace(prefix, "$0-")
                     count += 1
         elif isinstance(node, Msg):
-            if "1004-" in node.raw_text:
-                node.raw_text = node.raw_text.replace("1004-", "$0-")
+            if prefix in node.raw_text:
+                node.raw_text = node.raw_text.replace(prefix, "$0-")
                 count += 1
-    print(f"  {label}: {count} 1004- → $0- replacements")
+    print(f"  {label}: {count} {prefix} → $0- replacements")
+    return count
+
+
+def fix_hradio_sends(patch, bus_names, label):
+    """Wire up hradio elements that have empty send/receive.
+
+    bus_names is a list of bus name strings, matched by order of appearance
+    to hradios with send=empty AND receive=empty.
+    hradio raw_params: [size, new_and_old, init, number, send, receive, label, ...]
+    """
+    matched = 0
+    for node in walk_nodes(patch.canvas):
+        if isinstance(node, GuiElement) and node.gui_type == "hradio" \
+                and len(node.raw_params) >= 6:
+            if node.raw_params[4] == "empty" and node.raw_params[5] == "empty":
+                if matched < len(bus_names):
+                    bus = bus_names[matched]
+                    node.raw_params[4] = bus
+                    node.raw_params[5] = bus
+                    matched += 1
+    print(f"  {label}: {matched} hradio(s) wired")
+    return matched
+
+
+def fix_floatatom_receive(patch, label):
+    """Set floatatom receive to match send, so number boxes update from sliders.
+
+    Floatatom raw_params: [width, lower, upper, label_pos, label, receive, send, oldstyle]
+    If receive (index 5) is '-' and send (index 6) is a bus name, move send to receive
+    and clear send to '-'. This makes the number box display-only (receives from bus,
+    doesn't re-send — avoids Pd's "infinite loop" error for same send/receive).
+    """
+    count = 0
+    for node in walk_nodes(patch.canvas):
+        if isinstance(node, FloatAtom) and len(node.raw_params) >= 7:
+            recv = node.raw_params[5]
+            send = node.raw_params[6]
+            if recv == "-" and send != "-" and send.startswith("$0-"):
+                node.raw_params[5] = send
+                node.raw_params[6] = "-"
+                count += 1
+    print(f"  {label}: {count} floatatom receive(s) wired")
+    return count
+
+
+# Map of GUI elements whose send symbol should be changed.
+# Key: current send symbol, Value: replacement send symbol.
+GUI_SEND_FIXES = {
+    "modules/sample-player.pd": {
+        "$0-gui-speed": "$0-ctl-speed",
+        "$0-gui-dir": "$0-ctl-direction",
+        "$0-gui-loop": "$0-ctl-loop",
+        "$0-gui-lstart": "$0-ctl-lstart",
+        "$0-gui-lend": "$0-ctl-lend",
+        "$0-gui-level": "$0-ctl-level",
+    },
+}
+
+
+def fix_gui_send_receive(patch, send_map, label):
+    """Fix GUI elements whose send symbol should point to the engine bus.
+
+    For hsl/tgl/hradio, raw_params send index varies by type:
+      hsl: index 7 = send, index 8 = receive
+      tgl: index 3 = send, index 4 = receive
+      hradio: index 4 = send, index 5 = receive
+    """
+    send_idx_map = {"hsl": 7, "tgl": 3, "hradio": 4}
+    count = 0
+    for node in walk_nodes(patch.canvas):
+        if isinstance(node, GuiElement) and node.gui_type in send_idx_map:
+            si = send_idx_map[node.gui_type]
+            if len(node.raw_params) > si and node.raw_params[si] in send_map:
+                node.raw_params[si] = send_map[node.raw_params[si]]
+                count += 1
+    print(f"  {label}: {count} GUI send(s) fixed")
     return count
 
 
@@ -182,7 +263,10 @@ def rename_mixer_catches(patch):
                 node.tokens[1] = CATCH_RENAMES[node.tokens[1]]
                 count += 1
     print(f"  console.pd mixer: {count} catch~ renamed")
-    assert count == 10, f"Expected 10 catch~ renames, got {count}"
+    if count == 0:
+        print("    (already applied)")
+    else:
+        assert count == 10, f"Expected 10 catch~ renames, got {count}"
 
 
 # ── A5: Add abstraction objects to console.pd ────────────────────────
@@ -200,6 +284,16 @@ def add_abstraction_objects(patch):
     """Add module abstraction objects with strip number arguments."""
     canvas = patch.canvas
 
+    # Check if already applied
+    existing = {
+        tuple(n.tokens) for n in canvas.nodes
+        if isinstance(n, Obj) and len(n.tokens) == 2
+    }
+    needed = [(m, s) for m, s in MODULE_DEFAULTS if (m, str(s)) not in existing]
+    if not needed:
+        print(f"  console.pd: abstraction objects already present (skipped)")
+        return
+
     # Find insertion point: before connections
     insert_idx = len(canvas.nodes)
     for i, node in enumerate(canvas.nodes):
@@ -208,7 +302,7 @@ def add_abstraction_objects(patch):
             break
 
     # Place them below the strip area, spaced out
-    for j, (module, strip) in enumerate(MODULE_DEFAULTS):
+    for j, (module, strip) in enumerate(needed):
         obj = Obj(20 + j * 230, 175, [module, str(strip)])
         canvas.nodes.insert(insert_idx + j, obj)
 
@@ -221,6 +315,12 @@ def add_abstraction_objects(patch):
 def fix_sequencer_stop_gate(patch):
     """Add gate-off (0 → s tk-seq-gate) on the stop path in sequencer engine."""
     engine = find_subpatch(patch.canvas, "engine")
+
+    # Check if already applied
+    for node in engine.nodes:
+        if isinstance(node, Obj) and node.tokens == ["s", "tk-seq-gate"]:
+            print(f"  sequencer.pd: gate-off on stop already present (skipped)")
+            return
 
     # Find the stop inlet (inlet index 1 in engine) and the running sender
     # The stop path: inlet 1 → sends 0 to $0-running
@@ -288,9 +388,9 @@ def fix_console_init_gate(patch):
     # DSP/note init message. Add tk-gate 0 to it.
     for node in init.nodes:
         if isinstance(node, Msg) and "tk-velocity" in node.raw_text:
-            # Prepend tk-gate 0 before the note/velocity sends
-            # Current: \\; pd dsp 1 \\; tk-velocity 100 \\; tk-note 60
-            # Target:  \\; pd dsp 1 \\; tk-gate 0 \\; tk-velocity 100 \\; tk-note 60
+            if "tk-gate 0" in node.raw_text:
+                print(f"  console.pd init: tk-gate 0 already present (skipped)")
+                return
             node.raw_text = node.raw_text.replace(
                 "\\; tk-velocity",
                 "\\; tk-gate 0 \\; tk-velocity"
@@ -313,7 +413,11 @@ def fix_mcp_transport():
     old = 'send_fudi(f"bang {target}")'
     new = 'send_fudi(f"trig {target}")'
 
-    assert old in content, f"Expected to find '{old}' in pd-mcp-server.py"
+    if old not in content:
+        if new in content:
+            print(f"  pd-mcp-server.py: already fixed (skipped)")
+            return
+        raise ValueError(f"Expected to find '{old}' or '{new}' in pd-mcp-server.py")
     content = content.replace(old, new)
 
     with open(path, "w") as f:
@@ -377,22 +481,64 @@ def main():
     for fn in ("modules/osc-bank.pd", "modules/chord-pad.pd"):
         path = os.path.join(BASE, fn)
         p = Patch.read(path)
-        fix_dollarzero(p, os.path.basename(fn))
+        fix_dollarzero(p, "1004-", os.path.basename(fn))
         p.write(path)
+
+    print("\nA1b: Fix prefix → $0- in fm-voice, noise-sculptor, sample-player...")
+    module_prefixes = [
+        ("modules/fm-voice.pd", "1006-"),
+        ("modules/noise-sculptor.pd", "1007-"),
+        ("modules/sample-player.pd", "1008-"),
+    ]
+    for fn, prefix in module_prefixes:
+        path = os.path.join(BASE, fn)
+        p = Patch.read(path)
+        fix_dollarzero(p, prefix, os.path.basename(fn))
+        p.write(path)
+
+    print("\nA1c: Wire empty hradio send/receive...")
+    # fm-voice: 1 hradio with 8 buttons (CHARACTER)
+    path = os.path.join(BASE, "modules/fm-voice.pd")
+    p = Patch.read(path)
+    fix_hradio_sends(p, ["$0-ratio-sel"], "fm-voice")
+    p.write(path)
+
+    # noise-sculptor: 2 hradios with 8 buttons (NOISE SOURCE, FILTER TYPE)
+    path = os.path.join(BASE, "modules/noise-sculptor.pd")
+    p = Patch.read(path)
+    fix_hradio_sends(p, ["$0-noise-color", "$0-filt-type"], "noise-sculptor")
+    p.write(path)
+
+    print("\nA1d: Wire floatatom receive symbols...")
+    path = os.path.join(BASE, "modules/fm-voice.pd")
+    p = Patch.read(path)
+    count = fix_floatatom_receive(p, "fm-voice")
+    if count > 0:
+        p.write(path)
+
+    print("\nA1e: Fix sample-player GUI send/receive...")
+    for fn, send_map in GUI_SEND_FIXES.items():
+        path = os.path.join(BASE, fn)
+        p = Patch.read(path)
+        count = fix_gui_send_receive(p, send_map, os.path.basename(fn))
+        if count > 0:
+            p.write(path)
 
     print("\nA2: Parameterize module receivers...")
     for fn, renames in MODULE_RECEIVER_MAP.items():
         path = os.path.join(BASE, fn)
         p = Patch.read(path)
-        parameterize_receivers(p, renames, os.path.basename(fn))
-        p.write(path)
+        count = parameterize_receivers(p, renames, os.path.basename(fn))
+        if count > 0:
+            p.write(path)
 
     print("\nA3: Parameterize throw~ outputs...")
     for fn, renames in MODULE_THROW_MAP.items():
         path = os.path.join(BASE, fn)
         p = Patch.read(path)
-        parameterize_throws(p, renames, os.path.basename(fn))
-        p.write(path)
+        count = parameterize_throws(p, renames, os.path.basename(fn))
+        if count > 0:
+            p.write(path)
 
     print("\nA4: Update mixer catch~ in console.pd...")
     console_path = os.path.join(BASE, "console.pd")
