@@ -1,0 +1,22 @@
+# Audio exports
+export/**/*.wav
+export/**/*.mp3
+export/**/*.aiff
+export/**/*.ogg
+export/**/*.flac
+
+# Pd autosave
+*-meta.pd
+
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+
+# Nested git repos
+puredata-compiler/
+
+# Claude Code
+.claude/

@@ -1,0 +1,49 @@
+graph LR
+    subgraph Sources
+        osc_bank[osc-bank]
+        chord_pad[chord-pad]
+        fm_voice[fm-voice]
+        noise_sculptor[noise-sculptor]
+        sample_player[sample-player]
+    end
+    subgraph "Insert FX"
+        tape_warmth[tape-warmth]
+        space[space]
+    end
+    subgraph "Send FX"
+        chorus[chorus]
+        filter[filter]
+        tremolo_gate[tremolo-gate]
+    end
+    sequencer[sequencer]
+    console[console]
+    debug_bridge[debug-bridge]
+    chord_pad -->|"insert-L, insert-R, send-L, send-R"| console
+    chord_pad -->|"insert-L, insert-R"| tape_warmth
+    console -->|"note, panic"| chord_pad
+    console -->|"sendfx-L, sendfx-R"| chorus
+    console -->|"4 control buses"| debug_bridge
+    console -->|"sendfx-L, sendfx-R"| filter
+    console -->|"gate, note, panic"| fm_voice
+    console -->|"gate, panic"| noise_sculptor
+    console -->|"gate, note, panic"| osc_bank
+    console -->|"gate, panic"| sample_player
+    console -->|"panic, play, stop"| sequencer
+    console -->|"sendfx-L, sendfx-R"| tremolo_gate
+    fm_voice -->|"insert-L, insert-R, send-L, send-R"| console
+    fm_voice -->|"insert-L, insert-R"| tape_warmth
+    noise_sculptor -->|"insert-L, insert-R, send-L, send-R"| console
+    noise_sculptor -->|"insert-L, insert-R"| tape_warmth
+    osc_bank -->|"insert-L, insert-R, send-L, send-R"| console
+    osc_bank -->|"insert-L, insert-R"| tape_warmth
+    sample_player -->|"insert-L, insert-R, send-L, send-R"| console
+    sample_player -->|"insert-L, insert-R"| tape_warmth
+    sequencer -->|"note"| chord_pad
+    sequencer -->|"gate, play, stop"| console
+    sequencer -->|"seq-status, seq-step, seq-tempo"| debug_bridge
+    sequencer -->|"gate, note"| fm_voice
+    sequencer -->|"gate"| noise_sculptor
+    sequencer -->|"gate, note, velocity"| osc_bank
+    sequencer -->|"gate"| sample_player
+    sequencer -->|"tempo"| tremolo_gate
+    tape_warmth -->|"tape-out-L, tape-out-R"| space
