@@ -1,0 +1,16 @@
+#N canvas 200 200 500 300 12;
+#X text 20 10 mic-input — Live microphone or line input. Routes stereo
+audio from system input channels 1 and 2 into the mixer. Level \,
+pan \, and send are controlled from the console mixer strip.;
+#X obj 20 80 adc~ 1;
+#X obj 20 130 throw~ tk-source\$1-L;
+#X obj 20 160 throw~ tk-source\$1-R;
+#N canvas 0 0 300 200 init 0;
+#X obj 30 30 loadbang;
+#X msg 30 70 symbol mic-input;
+#X obj 30 110 s tk-source\$1-name;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X restore 300 80 pd init;
+#X connect 1 0 2 0;
+#X connect 1 0 3 0;
