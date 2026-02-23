@@ -1,9 +1,12 @@
-# Audio exports
+# Audio exports (source recordings)
 export/**/*.wav
 export/**/*.mp3
 export/**/*.aiff
 export/**/*.ogg
 export/**/*.flac
+
+# Processed exports
+EXPORTS/
 
 # Pd autosave
 *-meta.pd
