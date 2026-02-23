@@ -364,8 +364,10 @@
 #X obj 30 290 expr pow(10 \, $f1/20);
 #X obj 30 320 *~;
 #X obj 30 360 outlet~;
+#X msg 350 60 1 0;
 #X connect 0 0 1 0;
 #X connect 1 0 6 0;
+#X connect 1 1 18 0;
 #X connect 2 0 3 0;
 #X connect 3 0 4 0;
 #X connect 4 0 12 0;
@@ -381,6 +383,7 @@
 #X connect 14 0 15 0;
 #X connect 15 0 16 1;
 #X connect 16 0 17 0;
+#X connect 18 0 11 0;
 #X restore 420 830 pd open-hh;
 #N canvas 0 0 500 500 low-tom 0;
 #X obj 30 30 r 1020-ltom-trig;
@@ -1791,11 +1794,13 @@
 #X msg 380 910 \; 1020-bpm 130 \; 1020-swing 15 \; 1020-kick-tone 60 \; 1020-kick-decay 180 \; 1020-kick-level -6 \; 1020-snare-tone 40 \; 1020-snare-decay 120 \; 1020-snare-level -6 \; 1020-clap-decay 200 \; 1020-clap-level -8 \; 1020-rim-tone 50 \; 1020-rim-level -8 \; 1020-chh-decay 30 \; 1020-chh-level -8 \; 1020-ohh-decay 200 \; 1020-ohh-level -10 \; 1020-ltom-tone 50 \; 1020-ltom-decay 200 \; 1020-ltom-level -8 \; 1020-htom-tone 50 \; 1020-htom-decay 150 \; 1020-htom-level -8 \; array set 1020-kick-pat 1 0 0 1 0 0 1 0 0 0 1 0 0 0 0 0 \; array set 1020-snare-pat 0 0 0 0 1 0 0 0 0 0 0 0 1 0 0 0 \; array set 1020-clap-pat 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 \; array set 1020-rim-pat 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 \; array set 1020-chh-pat 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 \; array set 1020-ohh-pat 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 \; array set 1020-ltom-pat 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 \; array set 1020-htom-pat 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 \; 1020-refresh-ui 1;
 #X msg 560 910 \; 1020-bpm 110 \; 1020-swing 0 \; 1020-kick-tone 50 \; 1020-kick-decay 200 \; 1020-kick-level -6 \; 1020-snare-tone 50 \; 1020-snare-decay 150 \; 1020-snare-level -6 \; 1020-clap-decay 200 \; 1020-clap-level -6 \; 1020-rim-tone 70 \; 1020-rim-level -6 \; 1020-chh-decay 30 \; 1020-chh-level -8 \; 1020-ohh-decay 250 \; 1020-ohh-level -10 \; 1020-ltom-tone 50 \; 1020-ltom-decay 200 \; 1020-ltom-level -8 \; 1020-htom-tone 50 \; 1020-htom-decay 150 \; 1020-htom-level -8 \; array set 1020-kick-pat 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 \; array set 1020-snare-pat 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 \; array set 1020-clap-pat 0 0 0 0 1 0 0 0 0 0 0 0 1 0 0 0 \; array set 1020-rim-pat 1 0 0 1 0 0 1 0 1 0 0 1 0 0 0 0 \; array set 1020-chh-pat 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 \; array set 1020-ohh-pat 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 \; array set 1020-ltom-pat 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 \; array set 1020-htom-pat 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 \; 1020-refresh-ui 1;
 #X msg 740 910 \; 1020-bpm 120 \; 1020-swing 0 \; 1020-kick-tone 50 \; 1020-kick-decay 200 \; 1020-kick-level -6 \; 1020-snare-tone 50 \; 1020-snare-decay 150 \; 1020-snare-level -6 \; 1020-clap-decay 200 \; 1020-clap-level -8 \; 1020-rim-tone 50 \; 1020-rim-level -8 \; 1020-chh-decay 40 \; 1020-chh-level -8 \; 1020-ohh-decay 250 \; 1020-ohh-level -10 \; 1020-ltom-tone 50 \; 1020-ltom-decay 200 \; 1020-ltom-level -8 \; 1020-htom-tone 50 \; 1020-htom-decay 150 \; 1020-htom-level -8 \; array set 1020-kick-pat 1 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 \; array set 1020-snare-pat 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 \; array set 1020-clap-pat 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 \; array set 1020-rim-pat 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 \; array set 1020-chh-pat 1 0 0 0 1 0 0 0 1 0 0 0 1 0 0 0 \; array set 1020-ohh-pat 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 \; array set 1020-ltom-pat 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 \; array set 1020-htom-pat 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 \; 1020-refresh-ui 1;
+#X text 920 890 Clear;
+#X msg 920 910 \; array set 1020-kick-pat 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 \; array set 1020-snare-pat 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 \; array set 1020-clap-pat 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 \; array set 1020-rim-pat 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 \; array set 1020-chh-pat 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 \; array set 1020-ohh-pat 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 \; array set 1020-ltom-pat 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 \; array set 1020-htom-pat 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 \; 1020-refresh-ui 1;
 #X msg 120 85 1;
 #X msg 220 85 0;
-#X connect 1 0 248 0;
-#X connect 2 0 249 0;
-#X connect 3 0 249 0;
+#X connect 1 0 250 0;
+#X connect 2 0 251 0;
+#X connect 3 0 251 0;
 #X connect 6 0 14 0;
 #X connect 7 0 14 1;
 #X connect 8 0 14 2;
@@ -1807,5 +1812,5 @@
 #X connect 29 0 30 0;
 #X connect 30 0 31 0;
 #X connect 30 1 32 0;
-#X connect 248 0 5 0;
-#X connect 249 0 5 1;
+#X connect 250 0 5 0;
+#X connect 251 0 5 1;
