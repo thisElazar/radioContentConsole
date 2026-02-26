@@ -35,7 +35,7 @@
 #X obj 130 90 s 1010-running;
 #X msg 350 60 0;
 #X obj 350 90 s tk-seq-gate;
-#X obj 30 130 r 1010-bpm;
+#X obj 30 130 r 1010-bpm-a;
 #X obj 30 160 expr 60000 / $f1 / 2;
 #X obj 30 190 t f f;
 #X obj 30 230 metro 326;
@@ -394,7 +394,7 @@
 #X floatatom 350 230 5 10 100 0 - 1010-gatepct - 0;
 #X obj 140 260 hsl 200 18 0 60 0 0 1010-swing 1010-swing swing-% 0 12 0 4 #000000 #fcfcfc #fcfcfc 0 1;
 #X floatatom 350 260 5 0 60 0 - 1010-swing - 0;
-#X obj 400 200 r 1010-bpm;
+#X obj 400 200 r 1010-bpm-a;
 #X obj 400 230 t f;
 #X obj 400 260 s tk-tempo;
 #X obj 400 290 s tk-seq-tempo;
@@ -917,6 +917,18 @@
 #X connect 6 0 7 0;
 #X connect 7 0 8 0;
 #X restore 600 70 pd transport-bridge;
+#X obj 20 883 param-lfo 1010-bpm 40 240;
+#X obj 540 933 cnv 5 480 2 empty empty empty 0 0 0 12 -258113 -1 0;
+#X obj 540 953 cnv 15 480 20 empty empty AUTOMATION 4 10 0 14 -233280 -1 0;
+#X text 540 978 On;
+#X text 570 978 Rate;
+#X text 680 978 Depth;
+#X text 770 978 Param;
+#X obj 540 998 tgl 15 0 $0-lfo-bpm-on $0-lfo-bpm-on empty 0 -8 0 10 -262144 -1 -1 0 1;
+#X obj 565 998 hsl 100 12 0.05 10 1 1 $0-gui-lfo-bpm-rate $0-lfo-bpm-rate empty -2 -8 10 -262144 -1 -1 5653 1;
+#X obj 675 998 hsl 80 12 0 100 0 1 $0-gui-lfo-bpm-depth $0-lfo-bpm-depth empty -2 -8 10 -262144 -1 -1 4000 1;
+#X text 770 998 bpm;
+#X obj 540 1033 cnv 5 480 2 empty empty empty 0 0 0 12 -258113 -1 0;
 #X connect 1 0 126 0;
 #X connect 2 0 127 0;
 #X connect 3 0 127 0;
@@ -944,3 +956,7 @@
 #X connect 125 0 128 0;
 #X connect 126 0 5 0;
 #X connect 127 0 5 1;
+#X connect 137 0 130 0;
+#X connect 138 0 130 1;
+#X connect 139 0 130 2;
+#X connect 130 0 16 0;
