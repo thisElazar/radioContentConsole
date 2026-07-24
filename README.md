@@ -1,6 +1,6 @@
 # Station Audio Toolkit
 
-A Pure Data (Pd) interactive audio toolkit for producing broadcast-quality audio elements — jingles, sweepers, stingers, bumpers, beds, and more — for non-commercial educational radio.
+A Pure Data (Pd) interactive audio toolkit for producing broadcast-quality audio elements — station IDs, sweepers, stingers, beds, PSAs, legal IDs — for non-commercial educational radio.
 
 ## Setup
 

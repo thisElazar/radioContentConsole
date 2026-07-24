@@ -25,7 +25,7 @@ EXPORT_DST="$TOOLKIT_DIR/EXPORTS"
 MANIFEST="$EXPORT_DST/manifest.txt"
 
 # Asset type directories the console writes to
-ASSET_DIRS=(jingles stingers sweepers beds bumpers station-id promos psa other)
+ASSET_DIRS=(station-id sweepers stingers beds psa legal-id other)
 
 # Defaults
 SKIP_NORMALIZE=false
@@ -88,14 +88,12 @@ file_md5() {
 # Map directory name back to genre tag for ID3
 dir_to_genre() {
     case "$1" in
-        jingles)    echo "Jingle" ;;
-        stingers)   echo "Stinger" ;;
-        sweepers)   echo "Sweeper" ;;
-        beds)       echo "Bed" ;;
-        bumpers)    echo "Bumper" ;;
         station-id) echo "Station ID" ;;
-        promos)     echo "Promo" ;;
+        sweepers)   echo "Sweeper" ;;
+        stingers)   echo "Stinger" ;;
+        beds)       echo "Bed" ;;
         psa)        echo "PSA" ;;
+        legal-id)   echo "Legal ID" ;;
         other)      echo "Other" ;;
         *)          echo "Other" ;;
     esac
