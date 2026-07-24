@@ -32,8 +32,6 @@ SKIP_NORMALIZE=false
 FORCE=false
 STATION_NAME="91.9 KXST"
 TARGET_LUFS=-16
-TARGET_TP=-1
-TARGET_LRA=11
 
 # Parse arguments
 while [[ $# -gt 0 ]]; do
@@ -54,7 +52,7 @@ while [[ $# -gt 0 ]]; do
             echo "Usage: $0 [--skip-normalize] [--station \"Station Name\"] [--force]"
             echo ""
             echo "Scans export/<type>/ for WAV files and processes them:"
-            echo "  1. Two-pass loudness normalization (-16 LUFS, -1 dBTP)"
+            echo "  1. Two-pass loudness normalization (-16 LUFS, -1.5 dBTP)"
             echo "  2. MP3 conversion (320 kbps CBR)"
             echo "  3. ID3 tagging (title, artist, album, genre, comment, year)"
             echo "  4. Outputs to EXPORTS/<type>/ with tracking manifest"
@@ -103,36 +101,23 @@ dir_to_genre() {
     esac
 }
 
-# Two-pass loudnorm normalization
+# Two-pass loudnorm normalization — delegates to the canonical kernel in the
+# radio workbench repo (warns when a peaky recording can't reach target).
+# Override the location with LOUDNORM_KERNEL if the layout differs.
+LOUDNORM_KERNEL="${LOUDNORM_KERNEL:-$TOOLKIT_DIR/../library/music/scripts/loudnorm_one.sh}"
+
 normalize_file() {
     local input="$1"
     local output="$2"
 
-    echo "  Analyzing loudness..."
-    # Pass 1: measure
-    local analysis
-    analysis=$(ffmpeg -hide_banner -i "$input" \
-        -af "loudnorm=I=${TARGET_LUFS}:TP=${TARGET_TP}:LRA=${TARGET_LRA}:print_format=json" \
-        -f null - 2>&1 | grep -A 20 '"input_' | head -20)
-
-    local measured_I measured_TP measured_LRA measured_thresh offset
-    measured_I=$(echo "$analysis" | grep '"input_i"' | grep -o '[-0-9.]*')
-    measured_TP=$(echo "$analysis" | grep '"input_tp"' | grep -o '[-0-9.]*')
-    measured_LRA=$(echo "$analysis" | grep '"input_lra"' | grep -o '[-0-9.]*')
-    measured_thresh=$(echo "$analysis" | grep '"input_thresh"' | grep -o '[-0-9.]*')
-    offset=$(echo "$analysis" | grep '"target_offset"' | grep -o '[-0-9.]*')
-
-    if [[ -z "$measured_I" || -z "$measured_TP" || -z "$measured_LRA" || -z "$measured_thresh" || -z "$offset" ]]; then
-        echo "  Warning: Could not parse loudnorm analysis. Copying without normalization."
-        cp "$input" "$output"
-        return
+    if [[ ! -x "$LOUDNORM_KERNEL" ]]; then
+        echo "Error: loudnorm kernel not found at $LOUDNORM_KERNEL" >&2
+        echo "Set LOUDNORM_KERNEL to the path of loudnorm_one.sh." >&2
+        exit 1
     fi
 
-    echo "  Normalizing to ${TARGET_LUFS} LUFS / ${TARGET_TP} dBTP..."
-    # Pass 2: normalize
-    ffmpeg -hide_banner -y -i "$input" \
-        -af "loudnorm=I=${TARGET_LUFS}:TP=${TARGET_TP}:LRA=${TARGET_LRA}:measured_I=${measured_I}:measured_TP=${measured_TP}:measured_LRA=${measured_LRA}:measured_thresh=${measured_thresh}:offset=${offset}:linear=true" \
-        -ar 44100 "$output" 2>/dev/null
+    echo "  Normalizing to ${TARGET_LUFS} LUFS (loudnorm_one.sh)..."
+    "$LOUDNORM_KERNEL" "$input" "$output" "$TARGET_LUFS" >/dev/null
 }
 
 # Load existing manifest into associative arrays
