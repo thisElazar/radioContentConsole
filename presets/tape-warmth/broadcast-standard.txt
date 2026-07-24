@@ -1,0 +1,9 @@
+# Module: tape-warmth
+# Preset: Broadcast Standard
+param drive 15
+param tone 1
+param hbump 1.5
+param frate 2
+param fdepth 2
+param mix 100
+param bypass 0

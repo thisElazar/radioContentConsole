@@ -1,0 +1,12 @@
+# Module: fm-voice
+# Preset: Warm Keys
+param pitch 48
+param ratio-sel 1
+param mod-index 0.8
+param env-amount 0.3
+param env-decay 400
+param attack 5
+param decay 600
+param sustain 40
+param release 400
+param output-db -6

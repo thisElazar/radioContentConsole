@@ -1,0 +1,10 @@
+# Module: tremolo-gate
+# Preset: Stereo Pulse
+param rate 3
+param sync 0
+param syncrate 0
+param shape 30
+param depth 70
+param phase 180
+param mix 50
+param bypass 0

@@ -1,0 +1,9 @@
+# Module: chorus
+# Preset: Warm Chorus
+param rate 0.6
+param depth 45
+param delay 18
+param fb 10
+param width 80
+param mix 50
+param bypass 0

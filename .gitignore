@@ -23,3 +23,6 @@ puredata-compiler/
 
 # Claude Code
 .claude/
+
+# Recording counter (runtime state)
+export/.counter

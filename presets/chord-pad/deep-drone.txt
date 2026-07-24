@@ -1,0 +1,15 @@
+# Module: chord-pad
+# Preset: Deep Drone
+param root 24
+param chord 0
+param voicectl 1
+param detune 5
+param cutoff 600
+param reso 10
+param lfo-rate 0.03
+param lfo-depth 0
+param attack 800
+param release 1500
+param vel-sens 50
+param output-db -6
+param onoff 1

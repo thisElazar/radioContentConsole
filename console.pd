@@ -1188,14 +1188,8 @@
 #X restore 405 478 pd open-seq;
 #N canvas 0 0 450 250 open-drums 0;
 #X obj 30 30 inlet;
-#X msg 30 60 dir;
-#X obj 30 90 pdcontrol;
-#X obj 30 120 makefilename %s/modules;
-#X msg 30 160 \; pd open drum-machine.pd \$1;
-#X connect 0 0 1 0;
-#X connect 1 0 2 0;
-#X connect 2 0 3 0;
-#X connect 3 0 4 0;
+#X obj 30 70 pdcontrol;
+#X text 30 100 Drums\ are\ always\ loaded.\ Double-click\ the\ embedded\ object\ to\ open.;
 #X restore 623 516 pd open-drums;
 #N canvas 0 0 450 200 transport 0;
 #X obj 200 30 r tk-panic;
@@ -2096,6 +2090,7 @@
 #X obj 1014 150 tgl 15 0 tk-source5-solo tk-source5-solo Solo 18 7 0 10 #fcfcfc #fccc00 #000000 0 1;
 #X obj 1250 150 tgl 15 0 tk-source6-solo tk-source6-solo Solo 18 7 0 10 #fcfcfc #fccc00 #000000 0 1;
 #X obj 930 560 tgl 15 0 tk-drums-solo tk-drums-solo Solo 18 7 0 10 #fcfcfc #fccc00 #000000 0 1;
+#X obj 700 516 modules/drum-machine;
 #X connect 11 0 31 0;
 #X connect 17 0 32 0;
 #X connect 23 0 33 0;

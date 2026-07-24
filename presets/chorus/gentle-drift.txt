@@ -1,0 +1,9 @@
+# Module: chorus
+# Preset: Gentle Drift
+param rate 0.2
+param depth 25
+param delay 22
+param fb 5
+param width 90
+param mix 50
+param bypass 0

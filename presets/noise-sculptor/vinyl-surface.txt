@@ -1,0 +1,13 @@
+# Module: noise-sculptor
+# Preset: Vinyl Surface
+param noise-color 2
+param filt-type 0
+param cutoff 200
+param reso 10
+param lfo-rate 0.05
+param lfo-depth 0
+param mode 0
+param attack 500
+param hold 200
+param release 1000
+param output-db -12

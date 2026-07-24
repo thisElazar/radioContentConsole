@@ -1,0 +1,15 @@
+# Module: chord-pad
+# Preset: Jazz Murmur
+param root 36
+param chord 6
+param voicectl 1
+param detune 8
+param cutoff 1200
+param reso 15
+param lfo-rate 0.05
+param lfo-depth 20
+param attack 1200
+param release 2500
+param vel-sens 60
+param output-db -9
+param onoff 1

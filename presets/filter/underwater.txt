@@ -1,0 +1,9 @@
+# Module: filter
+# Preset: Underwater
+param mode 0
+param cutoff 400
+param reso 40
+param lforate 0.08
+param lfodepth 0
+param envfol 0
+param mix 50

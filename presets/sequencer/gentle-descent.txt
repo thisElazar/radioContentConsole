@@ -1,0 +1,13 @@
+# Module: sequencer
+# Preset: Gentle Descent
+param bpm 92
+param gatepct 70
+param swing 0
+param stepchoice 1
+param stepcount 8
+param direction 0
+param scale 4
+param root 7
+array pitch 67 62 60 57 55 57 60 62 67 62 60 57 55 57 60 62
+array gate 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0
+array accent 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0

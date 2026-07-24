@@ -1,0 +1,13 @@
+# Module: noise-sculptor
+# Preset: Warm Breath
+param noise-color 1
+param filt-type 1
+param cutoff 400
+param reso 25
+param lfo-rate 0.05
+param lfo-depth 30
+param mode 0
+param attack 500
+param hold 200
+param release 1000
+param output-db -6

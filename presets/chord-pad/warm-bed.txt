@@ -1,0 +1,15 @@
+# Module: chord-pad
+# Preset: Warm Bed
+param root 43
+param chord 0
+param voicectl 1
+param detune 10
+param cutoff 1800
+param reso 10
+param lfo-rate 0.03
+param lfo-depth 25
+param attack 800
+param release 1500
+param vel-sens 50
+param output-db -6
+param onoff 1

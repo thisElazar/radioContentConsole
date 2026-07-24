@@ -1,0 +1,9 @@
+# Module: chorus
+# Preset: Subtle Thicken
+param rate 0.3
+param depth 25
+param delay 12
+param fb 5
+param width 60
+param mix 30
+param bypass 0

@@ -1,0 +1,9 @@
+# Module: filter
+# Preset: Wah Pulse
+param mode 0
+param cutoff 1800
+param reso 45
+param lforate 0.08
+param lfodepth 0
+param envfol 70
+param mix 50

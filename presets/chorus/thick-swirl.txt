@@ -1,0 +1,9 @@
+# Module: chorus
+# Preset: Thick Swirl
+param rate 1.2
+param depth 70
+param delay 12
+param fb 20
+param width 90
+param mix 50
+param bypass 0

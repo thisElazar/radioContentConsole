@@ -1,0 +1,12 @@
+# Module: fm-voice
+# Preset: Bell Tone
+param pitch 60
+param ratio-sel 3
+param mod-index 1.5
+param env-amount 1.5
+param env-decay 400
+param attack 5
+param decay 600
+param sustain 40
+param release 400
+param output-db -6

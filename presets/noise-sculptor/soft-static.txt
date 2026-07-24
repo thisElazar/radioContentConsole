@@ -1,0 +1,13 @@
+# Module: noise-sculptor
+# Preset: Soft Static
+param noise-color 0
+param filt-type 0
+param cutoff 1200
+param reso 5
+param lfo-rate 0.05
+param lfo-depth 10
+param mode 0
+param attack 500
+param hold 200
+param release 1000
+param output-db -12

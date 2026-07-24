@@ -1,0 +1,34 @@
+# Module: drum-machine
+# Preset: Basic Rock
+param bpm 120
+param swing 0
+param sync 0
+param master-level -6
+param kick-tone 50
+param kick-decay 200
+param kick-level -6
+param snare-tone 50
+param snare-decay 150
+param snare-level -6
+param clap-decay 200
+param clap-level -8
+param rim-tone 50
+param rim-level -8
+param chh-decay 40
+param chh-level -8
+param ohh-decay 250
+param ohh-level -10
+param ltom-tone 50
+param ltom-decay 200
+param ltom-level -8
+param htom-tone 50
+param htom-decay 150
+param htom-level -8
+array kick-pat 1 0 0 0 1 0 0 0 1 0 0 0 1 0 0 0
+array snare-pat 0 0 0 0 1 0 0 0 0 0 0 0 1 0 0 0
+array clap-pat 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+array rim-pat 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+array chh-pat 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0
+array ohh-pat 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+array ltom-pat 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+array htom-pat 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0

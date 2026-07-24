@@ -1,0 +1,9 @@
+# Module: tape-warmth
+# Preset: Subtle Glue
+param drive 8
+param tone 0
+param hbump 1
+param frate 1.5
+param fdepth 1
+param mix 100
+param bypass 0

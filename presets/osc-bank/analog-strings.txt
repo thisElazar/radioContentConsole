@@ -1,0 +1,20 @@
+# Module: osc-bank
+# Preset: Analog Strings
+param wave1 0
+param fine1 0
+param drift1 4
+param wave2 0
+param fine2 15
+param drift2 4
+param mix-pct 50
+param cutoff 3000
+param reso 10
+param attack 200
+param decay 400
+param sustain 90
+param release 800
+param filter-env-depth 0
+param filter-env-decay 300
+param vel-sens 50
+param output-db -6
+param bypass 0

@@ -1,0 +1,9 @@
+# Module: chorus
+# Preset: Shimmer Wash
+param rate 0.4
+param depth 60
+param delay 25
+param fb 30
+param width 100
+param mix 50
+param bypass 0

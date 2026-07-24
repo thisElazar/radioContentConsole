@@ -1,0 +1,9 @@
+# Module: filter
+# Preset: Radio Dial
+param mode 2
+param cutoff 1000
+param reso 50
+param lforate 2
+param lfodepth 20
+param envfol 0
+param mix 50

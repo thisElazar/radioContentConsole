@@ -1,0 +1,12 @@
+# Module: fm-voice
+# Preset: Glass Chime
+param pitch 72
+param ratio-sel 4
+param mod-index 2
+param env-amount 4
+param env-decay 150
+param attack 5
+param decay 600
+param sustain 40
+param release 400
+param output-db -6

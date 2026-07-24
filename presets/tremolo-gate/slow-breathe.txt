@@ -1,0 +1,10 @@
+# Module: tremolo-gate
+# Preset: Slow Breathe
+param rate 1
+param sync 0
+param syncrate 0
+param shape 0
+param depth 40
+param phase 0
+param mix 50
+param bypass 0

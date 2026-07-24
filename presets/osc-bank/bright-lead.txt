@@ -1,0 +1,20 @@
+# Module: osc-bank
+# Preset: Bright Lead
+param wave1 0
+param fine1 0
+param drift1 3
+param wave2 1
+param fine2 5
+param drift2 3
+param mix-pct 50
+param cutoff 4000
+param reso 25
+param attack 15
+param decay 150
+param sustain 70
+param release 250
+param filter-env-depth 0
+param filter-env-decay 300
+param vel-sens 50
+param output-db -6
+param bypass 0

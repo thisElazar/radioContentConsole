@@ -1,0 +1,13 @@
+# Module: noise-sculptor
+# Preset: Rising Sweep
+param noise-color 0
+param filt-type 1
+param cutoff 200
+param reso 40
+param lfo-rate 0.05
+param lfo-depth 30
+param mode 1
+param attack 2000
+param hold 0
+param release 500
+param output-db -6

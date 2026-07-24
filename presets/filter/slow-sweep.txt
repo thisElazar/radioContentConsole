@@ -1,0 +1,9 @@
+# Module: filter
+# Preset: Slow Sweep
+param mode 0
+param cutoff 1800
+param reso 30
+param lforate 0.08
+param lfodepth 50
+param envfol 0
+param mix 50

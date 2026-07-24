@@ -1,0 +1,20 @@
+# Module: osc-bank
+# Preset: Warm Bass
+param wave1 0
+param fine1 0
+param drift1 3
+param wave2 0
+param fine2 7
+param drift2 3
+param mix-pct 50
+param cutoff 800
+param reso 20
+param attack 20
+param decay 200
+param sustain 80
+param release 300
+param filter-env-depth 0
+param filter-env-decay 300
+param vel-sens 50
+param output-db -6
+param bypass 0

@@ -1,0 +1,10 @@
+# Module: tremolo-gate
+# Preset: Classic Tremolo
+param rate 4
+param sync 0
+param syncrate 0
+param shape 20
+param depth 55
+param phase 0
+param mix 50
+param bypass 0

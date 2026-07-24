@@ -1,0 +1,9 @@
+# Module: filter
+# Preset: High Pass Rise
+param mode 1
+param cutoff 100
+param reso 30
+param lforate 0.05
+param lfodepth 80
+param envfol 0
+param mix 50

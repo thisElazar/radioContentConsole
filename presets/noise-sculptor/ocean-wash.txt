@@ -1,0 +1,13 @@
+# Module: noise-sculptor
+# Preset: Ocean Wash
+param noise-color 2
+param filt-type 0
+param cutoff 600
+param reso 20
+param lfo-rate 0.03
+param lfo-depth 80
+param mode 0
+param attack 500
+param hold 200
+param release 1000
+param output-db -6

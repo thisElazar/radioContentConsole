@@ -1,0 +1,7 @@
+# Module: space
+# Preset: Open Hall
+param size 65
+param damp 45
+param width 100
+param mix 25
+param bypass 0

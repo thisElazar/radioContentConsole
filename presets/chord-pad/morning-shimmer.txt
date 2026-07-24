@@ -1,0 +1,15 @@
+# Module: chord-pad
+# Preset: Morning Shimmer
+param root 48
+param chord 5
+param voicectl 1
+param detune 15
+param cutoff 3000
+param reso 10
+param lfo-rate 0.1
+param lfo-depth 25
+param attack 800
+param release 1500
+param vel-sens 50
+param output-db -6
+param onoff 1

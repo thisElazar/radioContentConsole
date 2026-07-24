@@ -1,0 +1,10 @@
+# Module: tremolo-gate
+# Preset: Choppy Swing
+param rate 0
+param sync 1
+param syncrate 3
+param shape 60
+param depth 80
+param phase 90
+param mix 50
+param bypass 0

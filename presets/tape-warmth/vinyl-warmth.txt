@@ -1,0 +1,9 @@
+# Module: tape-warmth
+# Preset: Vinyl Warmth
+param drive 30
+param tone 3
+param hbump 2.5
+param frate 3
+param fdepth 5
+param mix 100
+param bypass 0

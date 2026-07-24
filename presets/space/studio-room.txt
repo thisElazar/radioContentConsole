@@ -1,0 +1,7 @@
+# Module: space
+# Preset: Studio Room
+param size 30
+param damp 60
+param width 80
+param mix 12
+param bypass 0

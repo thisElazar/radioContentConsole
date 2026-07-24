@@ -1,0 +1,10 @@
+# Module: tremolo-gate
+# Preset: Hard Gate
+param rate 0
+param sync 1
+param syncrate 1
+param shape 100
+param depth 100
+param phase 0
+param mix 50
+param bypass 0

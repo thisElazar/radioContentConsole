@@ -1,0 +1,20 @@
+# Module: osc-bank
+# Preset: Sub Drone
+param wave1 3
+param fine1 0
+param drift1 5
+param wave2 2
+param fine2 0
+param drift2 5
+param mix-pct 50
+param cutoff 6000
+param reso 5
+param attack 50
+param decay 500
+param sustain 100
+param release 500
+param filter-env-depth 0
+param filter-env-decay 300
+param vel-sens 0
+param output-db -6
+param bypass 0

@@ -1,0 +1,9 @@
+# Module: tape-warmth
+# Preset: Lo-Fi Tape
+param drive 45
+param tone 4
+param hbump 3
+param frate 4
+param fdepth 10
+param mix 100
+param bypass 0

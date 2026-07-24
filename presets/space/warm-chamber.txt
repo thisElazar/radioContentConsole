@@ -1,0 +1,7 @@
+# Module: space
+# Preset: Warm Chamber
+param size 40
+param damp 70
+param width 60
+param mix 18
+param bypass 0

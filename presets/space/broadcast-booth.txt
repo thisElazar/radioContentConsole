@@ -1,0 +1,7 @@
+# Module: space
+# Preset: Broadcast Booth
+param size 15
+param damp 80
+param width 40
+param mix 8
+param bypass 0
